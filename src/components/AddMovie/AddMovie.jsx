@@ -52,7 +52,9 @@ function AddMovie() {
         history.push('/');
     }
 
-    // console.log(newMovie);
+
+    console.log(newMovie);
+
     return (
         <div>
             <Typography variant="h4" content="h4" className="add-movie-heading">
@@ -81,21 +83,16 @@ function AddMovie() {
                     onChange={(event) => handleChangeFor(event, 'description')}
                 >
                 </TextField>
-                {/*   onChange={() => setGenreChoice(event.target.value)} */}
-                <label htmlFor="genre-select">genre</label>
-                <select 
-                    name="genre" 
-                    id="genre-select"
-                    required
-                    // on change, sets the newMovie state for genre_id to the id provided from DB
-                    onChange={(event) => handleChangeFor(event, 'genre_id')}
-                >
-                    {genres.map(genre => (
-                        <option key={genre.id} value={genre.id}>
-                            {genre.name}
-                        </option>
+                {/* <InputLabel id="genre-select-label">
+                    Genre
+                </InputLabel> */}
+                <Select label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
+                    {genres?.map((genre) => (
+                    <MenuItem key={genre.id} value={genre.id}>
+                        {genre.name}
+                    </MenuItem>
                     ))}
-                </select>
+                </Select>
                 <Button
                     variant="contained"
                     color="primary"
@@ -105,20 +102,6 @@ function AddMovie() {
                 </Button>
             </FormControl>
             <CancelButton />
-            {/* Getting some strange errors working with materialUI selects */}
-            {/* <InputLabel id="genre-select-label">genre</InputLabel>
-            <Select
-                labelId="genre-select-label"
-                onChange={() => setGenreChoice(event.target.value)}
-            >{genres.map(genre => {
-                    return <MenuItem 
-                        key={genre?.id}
-                        value={value}
-                    >
-                        {genre?.name}
-                    </MenuItem>
-                })};
-            </Select> */}
         </div>
 
     )
