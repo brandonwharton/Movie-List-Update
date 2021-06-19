@@ -17,10 +17,11 @@ router.get('/', (req, res) => {
 
 // GET request for a single movie for the Details page
 router.get('/:id', (req, res) => {
+  const movieId = req.params.id
+  console.log('Inside single movie GET with ID:', movieId);
   
-
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
-  pool.query(query)
+  const query = `SELECT * FROM movies WHERE "id" = $1`;
+  pool.query(query, [movieId])
     .then( result => {
       res.send(result.rows);
     })

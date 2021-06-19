@@ -33,9 +33,11 @@ function* fetchAllMovies() {
 
 function* fetchSingleMovie(action) {
     const movieId = action.payload
+    console.log(movieId);
+    
     // get one movie from the DB
     try {
-        const movie = yield axios.get(`/api/movie${movieId}`);
+        const movie = yield axios.get(`/api/movie/${movieId}`);
         yield put({ type: 'SET_MOVIES', payload: movie.data})
     } catch {
         console.error('get single movie error')
