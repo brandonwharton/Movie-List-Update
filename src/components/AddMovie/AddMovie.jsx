@@ -27,7 +27,7 @@ function AddMovie() {
         title: '',
         poster: '',
         description: '',
-        genre_id: ''
+        genre_id: 1
     });
 
     useEffect(() => {
@@ -86,7 +86,7 @@ function AddMovie() {
                 {/* <InputLabel id="genre-select-label">
                     Genre
                 </InputLabel> */}
-                <Select label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
+                <Select value={newMovie.genre_id} label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
                     {genres?.map((genre) => (
                     <MenuItem key={genre.id} value={genre.id}>
                         {genre.name}
