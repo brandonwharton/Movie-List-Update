@@ -2,9 +2,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-// components
+// components/styling
 import CancelButton from '../CancelButton/CancelButton';
+import './AddMovie.css';
 // material-UI components
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -53,8 +55,10 @@ function AddMovie() {
     // console.log(newMovie);
     return (
         <div>
-            <h2>Add a Movie</h2>
-            <FormControl onSubmit={handleSubmit}>
+            <Typography variant="h4" content="h4" className="add-movie-heading">
+                Add a Movie
+            </Typography>
+            <FormControl onSubmit={handleSubmit} className="add-movie-form">
                 <TextField
                     label="title"
                     required

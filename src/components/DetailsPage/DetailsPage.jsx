@@ -17,7 +17,7 @@ function DetailsPage () {
     // get specific genres from reducer
     const genres = useSelector(store => store.genres);
     // get recentDetail reducer data to assist in navigation from AddMovie back to detail page
-    const recentDetail = useSelector(store => store.recentDetail);
+    // const recentDetail = useSelector(store => store.recentDetail);
 
     // GET request dispatch on navigation or reload
     useEffect(() => {

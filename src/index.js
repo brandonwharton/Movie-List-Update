@@ -30,7 +30,7 @@ function* rootSaga() {
 
 function* fetchAllMovies() {
     // reset the recentDetail reducer
-    yield put ({ type: 'RESET_DETAIL_ID'});
+    // yield put ({ type: 'RESET_DETAIL_ID'});
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
@@ -46,7 +46,7 @@ function* fetchSingleMovie(action) {
     // action.payload is the DB id of the movie we want to GET
     const movieId = action.payload
     // save the DB id into the recentDetail reducer to assist in navigation
-    yield put({ type: 'SET_DETAIL_ID', payload: movieId})
+    // yield put({ type: 'SET_DETAIL_ID', payload: movieId})
     // get one movie from the DB
     try {
         // movieData comes back as a separate array element for each genre
@@ -133,16 +133,16 @@ const genres = (state = [], action) => {
 
 
 // Used to store the most recently visited detail page for navigation
-const recentDetail = (state = 0, action) => {
-    switch (action.type) {
-        case 'SET_DETAIL_ID':
-            return action.payload;
-        case 'RESET_DETAIL_ID':
-            return 0;
-        default:
-            return state;
-    }
-}
+// const recentDetail = (state = 0, action) => {
+//     switch (action.type) {
+//         case 'SET_DETAIL_ID':
+//             return action.payload;
+//         case 'RESET_DETAIL_ID':
+//             return 0;
+//         default:
+//             return state;
+//     }
+// }
 
 
 // Create one store that all components can use
@@ -150,7 +150,7 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        recentDetail
+        // recentDetail
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

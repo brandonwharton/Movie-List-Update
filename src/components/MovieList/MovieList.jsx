@@ -22,9 +22,11 @@ function MovieList() {
 
     return (
         <main>
-            <Typography variant="h4" component ="h2" className="list-title">
+            <div className="list-title">
+            <Typography variant="h4" component ="h2">
                 Movies
             </Typography>
+            </div>
             <section className="movies">
                 {movies.map(movie => (
                     <MovieItem key={movie.id} movie={movie} />
