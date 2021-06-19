@@ -31,7 +31,6 @@ function DetailsPage () {
     }
 
 
-    console.log('Recent detail number', recentDetail);
     return (
     <div>
         <h3>{movie?.title}</h3>
