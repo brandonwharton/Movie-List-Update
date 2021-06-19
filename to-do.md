@@ -1,13 +1,13 @@
 To-Do
 - [ ] DetailsPage '/details'
-    - [ ] Brought to DetailsPage for a movie on-click of that movie poster from the MovieList page
-        - [ ] GET request with req.params/ req.query
-    - [ ] Show all details from that movie
-    - [ ] Show ALL genres for selected movie - stored in redux
-        - [ ] useSelector for genres in the MovieItem component?
-    - [ ] Back to List button, brings user to Home page
+    - [x] Brought to DetailsPage for a movie on-click of that movie poster from the MovieList page
+        - [x] GET request with req.params/ req.query
+    - [x] Show all details from that movie
+    - [x] Show ALL genres for selected movie - stored in redux
+        - [x] useSelector for genres in the MovieItem component?
+    - [x] Back to List button, brings user to Home page
         - [ ] Make this a component?
-    - [ ] Base mode doesn't require correct details to load after browser refresh
+    - [x] Base mode doesn't require correct details to load after browser refresh
 
 
 - [ ] AddMovie page '/addmovie'
