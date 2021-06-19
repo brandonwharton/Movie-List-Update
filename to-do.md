@@ -1,7 +1,7 @@
 To-Do
 - [ ] DetailsPage '/details'
-    - [ ] Brought to DetailsPage for a movie on-click of that movie poster from the MovieList page
-        - [ ] GET request with req.params/ req.query
+    - [x] Brought to DetailsPage for a movie on-click of that movie poster from the MovieList page
+        - [x] GET request with req.params/ req.query
     - [ ] Show all details from that movie
     - [ ] Show ALL genres for selected movie - stored in redux
         - [ ] useSelector for genres in the MovieItem component?
