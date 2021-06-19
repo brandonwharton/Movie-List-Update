@@ -1,6 +1,7 @@
 // hooks
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router';
 // components
 import CancelButton from '../CancelButton/CancelButton';
 // material-UI components
@@ -13,8 +14,10 @@ import Button from '@material-ui/core/Button';
 
 
 
+
 function AddMovie() {
     const dispatch = useDispatch();
+    const history = useHistory();
     // get all genres from reducer
     const genres = useSelector(store => store.genres);
     // GET all genres on page load
@@ -38,10 +41,13 @@ function AddMovie() {
         })
     }
 
-    // submit handler for save button to dispatch newMovie data
+    // submit handler for save button to dispatch newMovie data and navigation back to list
     const handleSubmit = (event) => {
         event.preventDefault();
+        // send newMovie data to redux saga
         dispatch({ type: 'ADD_NEW_MOVIE', payload: newMovie });
+        // navigate back to movie list
+        history.push('/');
     }
 
     // console.log(newMovie);

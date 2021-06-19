@@ -19,7 +19,7 @@ To-Do
     - [x] dropdown for genres
         - [x] get these from DB using saga/reducer, map over them
     - [x] Cancel button, brings user back to '/' route (use goBack, make as a component for possible use in stretch goals?)
-    - [ ] Save button, POSTs to DB and nav to '/' route
+    - [x] Save button, POSTs to DB and nav to '/' route
     - [ ] Base mode doesn't need multiple genres/movie available
 
 - [ ] Styling
