@@ -38,6 +38,7 @@ To-Do
         - [ ] Display current (not yet changed) values?
 
 - [ ] Other Ideas
+    - [ ] Navbar for 
     - [ ] Display all genres on movie list page
         - [ ] Research array_agg
     - [ ] Allow multiple genres as they add
