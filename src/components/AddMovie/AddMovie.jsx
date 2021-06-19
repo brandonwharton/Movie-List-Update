@@ -78,7 +78,7 @@ function AddMovie() {
                 >
                 </TextField>
                 {/*   onChange={() => setGenreChoice(event.target.value)} */}
-                <label for="genre-select">genre</label>
+                <label htmlFor="genre-select">genre</label>
                 <select 
                     name="genre" 
                     id="genre-select"
@@ -87,7 +87,7 @@ function AddMovie() {
                     onChange={(event) => handleChangeFor(event, 'genre_id')}
                 >
                     {genres.map(genre => (
-                        <option value={genre.id}>
+                        <option key={genre.id} value={genre.id}>
                             {genre.name}
                         </option>
                     ))}

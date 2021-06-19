@@ -40,6 +40,8 @@ function* fetchAllMovies() {
 function* fetchSingleMovie(action) {
     // action.payload is the DB id of the movie we want to GET
     const movieId = action.payload
+    // save the DB id into the recentDetail reducer to assist in navigation
+    yield put({ type: 'SET_DETAIL_ID', payload: movieId})
     // get one movie from the DB
     try {
         // movieData comes back as a separate array element for each genre
@@ -118,11 +120,24 @@ const genres = (state = [], action) => {
     }
 }
 
+
+// Used to store the most recently visited detail page for navigation
+const recentDetail = (state = '', action) => {
+    switch (action.type) {
+        case 'SET_DETAIL_ID':
+            return action.payload;
+        default:
+            return state;
+    }
+}
+
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        recentDetail
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

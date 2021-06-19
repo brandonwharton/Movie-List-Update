@@ -18,22 +18,12 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    // click handler to navigate to AddMovie route
-    const handleClick = () => {
-        history.push('/addmovie');
-    }
 
     return (
         <main>
             <Typography variant="h4" component ="h2" className="list-title">
                 Movies
             </Typography>
-            <Button
-                variant="contained"
-                onClick={handleClick}
-            >
-                Add New Movie
-            </Button>
             <section className="movies">
                 {movies.map(movie => (
                     <MovieItem movie={movie} />
