@@ -28,8 +28,8 @@ function DetailsPage () {
         <img src={movie?.poster} alt={movie?.title}/>
         <h4>List of genres:</h4>
         <ul>
-        {genres.map(genre => (
-            <li>{genre}</li>
+        {genres.map( (genre, index) => (
+            <li key={index}>{genre}</li>
         ))}
         </ul>
     </div>
