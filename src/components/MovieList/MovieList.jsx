@@ -16,6 +16,7 @@ function MovieList() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
+        dispatch({ type: 'CLEAR_GENRES' });
     }, []);
 
 
@@ -26,7 +27,7 @@ function MovieList() {
             </Typography>
             <section className="movies">
                 {movies.map(movie => (
-                    <MovieItem movie={movie} />
+                    <MovieItem key={movie.id} movie={movie} />
                 ))}
             </section>
         </main>

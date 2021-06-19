@@ -21,10 +21,6 @@ function DetailsPage () {
 
     // GET request dispatch on navigation or reload
     useEffect(() => {
-        if (recentDetail) {
-            console.log('inside conditional recentDetail');
-            dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: recentDetail});
-        }
         dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: id});
     }, [])
 
