@@ -12,6 +12,8 @@ function DetailsPage () {
     // movies reducer always holds an array, target the only element
     // of array with useSelector
     const movie = useSelector(store => store.movies[0])
+    // get specific genres from reducer
+    const genres = useSelector(store => store.genres);
 
 
     // GET request dispatch on navigation
@@ -24,6 +26,12 @@ function DetailsPage () {
     <div>
         <h3>{movie?.title}</h3>
         <img src={movie?.poster} alt={movie?.title}/>
+        <h4>List of genres:</h4>
+        <ul>
+        {genres.map(genre => (
+            <li>{genre}</li>
+        ))}
+        </ul>
     </div>
     )
 }
