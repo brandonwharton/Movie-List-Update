@@ -1,6 +1,7 @@
 import {HashRouter as Router, Route} from 'react-router-dom';
 // components/styling
 import './App.css';
+import Header from '../Header/Header';
 import MovieList from '../MovieList/MovieList';
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AddMovie from '../AddMovie/AddMovie';
@@ -8,7 +9,7 @@ import AddMovie from '../AddMovie/AddMovie';
 function App() {
   return (
     <div className="App">
-      <h1>The Movies Saga!</h1>
+      <Header />
       <div className="App-main">
         <Router>        
           <Route path="/" exact>

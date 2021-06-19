@@ -6,6 +6,8 @@ import MovieItem from '../MovieItem/MovieItem';
 // material-UI components
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router';
+import Typography from '@material-ui/core/Typography';
+import '@fontsource/roboto';
 
 function MovieList() {
     const dispatch = useDispatch();
@@ -23,7 +25,9 @@ function MovieList() {
 
     return (
         <main>
-            <h1>MovieList</h1>
+            <Typography variant="h4" component ="h2" className="list-title">
+                Movies
+            </Typography>
             <Button
                 variant="contained"
                 onClick={handleClick}

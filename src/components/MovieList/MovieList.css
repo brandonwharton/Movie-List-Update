@@ -1,3 +1,7 @@
+.list-title {
+    color: rgb(214, 212, 212);
+}
+
 .movies {
     display : flex;
     flex-wrap: wrap;
