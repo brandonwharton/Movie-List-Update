@@ -30,7 +30,6 @@ function MovieList() {
             >
                 Add New Movie
             </Button>
-            <MovieItem />
             <section className="movies">
                 {movies.map(movie => (
                     <MovieItem movie={movie} />
