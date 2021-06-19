@@ -5,9 +5,9 @@ To-Do
     - [x] Show all details from that movie
     - [x] Show ALL genres for selected movie - stored in redux
         - [x] useSelector for genres in the MovieItem component?
-    - [ ] Back to List button, brings user to Home page
+    - [x] Back to List button, brings user to Home page
         - [ ] Make this a component?
-    - [ ] Base mode doesn't require correct details to load after browser refresh
+    - [x] Base mode doesn't require correct details to load after browser refresh
 
 
 - [ ] AddMovie page '/addmovie'
