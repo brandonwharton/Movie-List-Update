@@ -15,12 +15,15 @@ router.get('/', (req, res) => {
     })
 });
 
-// GET request for a single movie for the Details page
+// GET request for a single movie for the Details page along with genre data
 router.get('/:id', (req, res) => {
   const movieId = req.params.id
   console.log('Inside single movie GET with ID:', movieId);
   
-  const query = `SELECT * FROM movies WHERE "id" = $1`;
+  const query = `SELECT "genres".name, "movies".* FROM "movies"
+                 JOIN "movies_genres" ON "movies_genres".movie_id = "movies".id
+                 JOIN "genres" ON "movies_genres".genre_id = "genres".id
+                 WHERE "movies".id = $1;`;
   pool.query(query, [movieId])
     .then( result => {
       res.send(result.rows);
