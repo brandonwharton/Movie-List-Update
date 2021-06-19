@@ -14,23 +14,38 @@ function AddMovie() {
     // get all genres from reducer
     const genres = useSelector(store => store.genres);
     // GET all genres on page load
-    const [genreChoice, setGenreChoice] = useState('');
+    const [newMovie, setNewMovie] = useState({
+        title: '',
+        poster: '',
+        description: '',
+        genre_id: ''
+    });
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES'});
     }, []);
 
-    console.log(genres);
-    console.log(genreChoice);
+    // change handler for entire input form, sets individual newMovie
+    // keys as they're changed by user
+    const handleChangeFor = (event, propertyName) => {
+        setNewMovie({
+            ...newMovie,
+            [propertyName]: event.target.value
+        })
+    }
+
+    console.log(newMovie);
     return (
         <div>
             <h2>Add a Movie</h2>
             <TextField
                 label="title"
+                onChange={(event) => handleChangeFor(event, 'title')}
             >
             </TextField>
             <TextField
                 label="poster URL"
+                onChange={(event) => handleChangeFor(event, 'poster')}
             >
             </TextField>
             <TextField
@@ -39,12 +54,21 @@ function AddMovie() {
                 rows={6}
                 rowsMax={6}
                 variant="outlined"
+                onChange={(event) => handleChangeFor(event, 'description')}
             >
             </TextField>
+            {/*   onChange={() => setGenreChoice(event.target.value)} */}
             <label for="genre-select">genre</label>
-            <select name="genre" id="genre-select" onChange={() => setGenreChoice(event.target.value)}>
+            <select 
+                name="genre" 
+                id="genre-select"
+                // on change, sets the newMovie state for genre_id to the id provided from DB
+                onChange={(event) => handleChangeFor(event, 'genre_id')}
+            >
                 {genres.map(genre => (
-                    <option value={genre.name}>{genre.name}</option>
+                    <option value={genre.id}>
+                        {genre.name}
+                    </option>
                 ))}
             </select>
 
