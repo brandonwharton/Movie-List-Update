@@ -9,7 +9,9 @@ function DetailsPage () {
     const dispatch = useDispatch();
     // save the DB id of the movie clicked
     const { id } = useParams();
-    const movie = useSelector(store => store.movies)
+    // movies reducer always holds an array, target the only element
+    // of array with useSelector
+    const movie = useSelector(store => store.movies[0])
 
 
     // GET request dispatch on navigation
@@ -19,7 +21,10 @@ function DetailsPage () {
 
     console.log('Movie in detail page:', movie);
     return (
-        <h2>In DetailsPage: {id}</h2>
+    <div>
+        <h3>{movie?.title}</h3>
+        <img src={movie?.poster} alt={movie?.title}/>
+    </div>
     )
 }
 
