@@ -11,15 +11,15 @@ To-Do
 
 
 - [ ] AddMovie page '/addmovie'
-    - [ ] local states for inputs, look into one change handler to create object
-    - [ ] TextField for title
-    - [ ] TextField for image url
-        - [ ] These are stored in public/images right now, make this possible with web URLs also?
-    - [ ] textarea (look into this) for movie description
-    - [ ] dropdown for genres
-        - [ ] get these from DB using saga/reducer, map over them
-    - [ ] Cancel button, brings user back to '/' route (use goBack, make as a component for possible use in stretch goals?)
-    - [ ] Save button, POSTs to DB and nav to '/' route
+    - [x] local states for inputs, look into one change handler to create object
+    - [x] TextField for title
+    - [x] TextField for image url
+        - [x] These are stored in public/images right now, make this possible with web URLs also?
+    - [x] textarea (look into this) for movie description
+    - [x] dropdown for genres
+        - [x] get these from DB using saga/reducer, map over them
+    - [x] Cancel button, brings user back to '/' route (use goBack, make as a component for possible use in stretch goals?)
+    - [x] Save button, POSTs to DB and nav to '/' route
     - [ ] Base mode doesn't need multiple genres/movie available
 
 - [ ] Styling
@@ -38,6 +38,7 @@ To-Do
         - [ ] Display current (not yet changed) values?
 
 - [ ] Other Ideas
+    - [ ] Navbar for 
     - [ ] Display all genres on movie list page
         - [ ] Research array_agg
     - [ ] Allow multiple genres as they add
