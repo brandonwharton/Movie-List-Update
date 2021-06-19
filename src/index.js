@@ -18,7 +18,9 @@ function* rootSaga() {
     // watches for dispatches from DetailsPage 
     yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
     // watches for dispatches to add genres while inside of fetchSingleMovie
-    yield takeEvery('ADD_SPECIFIC_GENRES', addSpecificGenres);
+    yield takeEvery('FETCH_SPECIFIC_GENRES', fetchSpecificGenres);
+    // watches for dispatches to GET all genres from AddMovie
+    yield takeEvery('FETCH_GENRES', fetchGenres);
 }
 
 function* fetchAllMovies() {
@@ -55,13 +57,23 @@ function* fetchSingleMovie(action) {
 
 // only gets called inside of fetchSingleMovie generator
 // sets genres reducer with the genres specific to the movie shown currently in DetailsPage
-function* addSpecificGenres(action) {
+function* fetchSpecificGenres(action) {
     // pull genres out of data and save them as an array
     // genres come in as the 'name' key for each individual array element passed as action.payload
     let genreArray = [];
     action.payload.forEach(genre => genreArray.push(genre.name));
     // set genres reducer with newly created array 
     yield put({ type: 'SET_GENRES', payload: genreArray })
+}
+
+function* fetchGenres() {
+    // get all genres from DB
+    try {
+        const genres = yield axios.get('/api/genre');
+        yield put({ type: 'SET_GENRES', payload: genres.data});
+    } catch {
+        console.error('get all genres error');
+    }
 }
 
 
