@@ -18,7 +18,7 @@ To-Do
     - [x] textarea (look into this) for movie description
     - [x] dropdown for genres
         - [x] get these from DB using saga/reducer, map over them
-    - [ ] Cancel button, brings user back to '/' route (use goBack, make as a component for possible use in stretch goals?)
+    - [x] Cancel button, brings user back to '/' route (use goBack, make as a component for possible use in stretch goals?)
     - [ ] Save button, POSTs to DB and nav to '/' route
     - [ ] Base mode doesn't need multiple genres/movie available
 

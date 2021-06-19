@@ -21,6 +21,8 @@ function* rootSaga() {
     yield takeEvery('FETCH_SPECIFIC_GENRES', fetchSpecificGenres);
     // watches for dispatches to GET all genres from AddMovie
     yield takeEvery('FETCH_GENRES', fetchGenres);
+    // watches for dispatches from AddMovie to POST a new movie to DB
+    yield takeEvery('ADD_NEW_MOVIE', addNewMovie);
 }
 
 function* fetchAllMovies() {
@@ -43,12 +45,14 @@ function* fetchSingleMovie(action) {
         // movieData comes back as a separate array element for each genre
         // associated with that movie
         const movieData = yield axios.get(`/api/movie/${movieId}`);
+        console.log('Troubleshooting movieData and genres', movieData.data);
+        
         // save one element of movieData to send to movies reducer
         const movie = movieData.data[0];
         // send movie data to movies reducer as an array to maintain default state
         yield put({ type: 'SET_MOVIES', payload: [movie] });
         // using movieData from database, set genres reducer with each genre
-        yield put({ type: 'ADD_SPECIFIC_GENRES', payload: movieData.data })
+        yield put({ type: 'FETCH_SPECIFIC_GENRES', payload: movieData.data })
     } catch {
         console.error('get single movie error')
     }
@@ -74,6 +78,19 @@ function* fetchGenres() {
     } catch {
         console.error('get all genres error');
     }
+}
+
+
+function* addNewMovie(action) {
+    // POST new movie to the DB
+    try {
+        yield axios.post('/api/movie', action.payload);
+        // reset state with updated DB data
+        yield put({ type: fetchAllMovies });
+    } catch {
+        console.error('post new movie error');
+    }
+    
 }
 
 
