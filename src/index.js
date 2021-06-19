@@ -16,7 +16,9 @@ function* rootSaga() {
     // watches for dispatches from MovieList
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     // watches for dispatches from DetailsPage 
-    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie)
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie);
+    // watches for dispatches to add genres while inside of fetchSingleMovie
+    yield takeEvery('ADD_SPECIFIC_GENRES', addSpecificGenres);
 }
 
 function* fetchAllMovies() {
@@ -32,16 +34,34 @@ function* fetchAllMovies() {
 }
 
 function* fetchSingleMovie(action) {
+    // action.payload is the DB id of the movie we want to GET
     const movieId = action.payload
-    console.log(movieId);
-    
     // get one movie from the DB
     try {
-        const movie = yield axios.get(`/api/movie/${movieId}`);
-        yield put({ type: 'SET_MOVIES', payload: movie.data})
+        // movieData comes back as a separate array element for each genre
+        // associated with that movie
+        const movieData = yield axios.get(`/api/movie/${movieId}`);
+        // save one element of movieData to send to movies reducer
+        const movie = movieData.data[0];
+        // send movie data to movies reducer as an array to maintain default state
+        yield put({ type: 'SET_MOVIES', payload: [movie] });
+        // using movieData from database, set genres reducer with each genre
+        yield put({ type: 'ADD_SPECIFIC_GENRES', payload: movieData.data })
     } catch {
         console.error('get single movie error')
     }
+}
+
+
+// only gets called inside of fetchSingleMovie generator
+// sets genres reducer with the genres specific to the movie shown currently in DetailsPage
+function* addSpecificGenres(action) {
+    // pull genres out of data and save them as an array
+    // genres come in as the 'name' key for each individual array element passed as action.payload
+    let genreArray = [];
+    action.payload.forEach(genre => genreArray.push(genre.name));
+    // set genres reducer with newly created array 
+    yield put({ type: 'SET_GENRES', payload: genreArray })
 }
 
 
