@@ -1,6 +1,8 @@
 // hooks
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+// components
+import CancelButton from '../CancelButton/CancelButton';
 // material-UI components
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -71,7 +73,7 @@ function AddMovie() {
                     </option>
                 ))}
             </select>
-
+            <CancelButton />
             {/* Getting some strange errors working with materialUI selects */}
             {/* <InputLabel id="genre-select-label">genre</InputLabel>
             <Select
