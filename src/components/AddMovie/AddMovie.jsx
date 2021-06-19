@@ -2,9 +2,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-// components
+// components/styling
 import CancelButton from '../CancelButton/CancelButton';
+import './AddMovie.css';
 // material-UI components
+import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -25,7 +27,7 @@ function AddMovie() {
         title: '',
         poster: '',
         description: '',
-        genre_id: ''
+        genre_id: 1
     });
 
     useEffect(() => {
@@ -50,11 +52,15 @@ function AddMovie() {
         history.push('/');
     }
 
-    // console.log(newMovie);
+
+    console.log(newMovie);
+
     return (
         <div>
-            <h2>Add a Movie</h2>
-            <FormControl onSubmit={handleSubmit}>
+            <Typography variant="h4" content="h4" className="add-movie-heading">
+                Add a Movie
+            </Typography>
+            <FormControl onSubmit={handleSubmit} className="add-movie-form">
                 <TextField
                     label="title"
                     required
@@ -77,21 +83,16 @@ function AddMovie() {
                     onChange={(event) => handleChangeFor(event, 'description')}
                 >
                 </TextField>
-                {/*   onChange={() => setGenreChoice(event.target.value)} */}
-                <label for="genre-select">genre</label>
-                <select 
-                    name="genre" 
-                    id="genre-select"
-                    required
-                    // on change, sets the newMovie state for genre_id to the id provided from DB
-                    onChange={(event) => handleChangeFor(event, 'genre_id')}
-                >
-                    {genres.map(genre => (
-                        <option value={genre.id}>
-                            {genre.name}
-                        </option>
+                {/* <InputLabel id="genre-select-label">
+                    Genre
+                </InputLabel> */}
+                <Select value={newMovie.genre_id} label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
+                    {genres?.map((genre) => (
+                    <MenuItem key={genre.id} value={genre.id}>
+                        {genre.name}
+                    </MenuItem>
                     ))}
-                </select>
+                </Select>
                 <Button
                     variant="contained"
                     color="primary"
@@ -101,20 +102,6 @@ function AddMovie() {
                 </Button>
             </FormControl>
             <CancelButton />
-            {/* Getting some strange errors working with materialUI selects */}
-            {/* <InputLabel id="genre-select-label">genre</InputLabel>
-            <Select
-                labelId="genre-select-label"
-                onChange={() => setGenreChoice(event.target.value)}
-            >{genres.map(genre => {
-                    return <MenuItem 
-                        key={genre?.id}
-                        value={value}
-                    >
-                        {genre?.name}
-                    </MenuItem>
-                })};
-            </Select> */}
         </div>
 
     )

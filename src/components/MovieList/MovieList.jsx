@@ -16,27 +16,20 @@ function MovieList() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
+        dispatch({ type: 'CLEAR_GENRES' });
     }, []);
 
-    // click handler to navigate to AddMovie route
-    const handleClick = () => {
-        history.push('/addmovie');
-    }
 
     return (
         <main>
-            <Typography variant="h4" component ="h2" className="list-title">
+            <div className="list-title">
+            <Typography variant="h4" component ="h2">
                 Movies
             </Typography>
-            <Button
-                variant="contained"
-                onClick={handleClick}
-            >
-                Add New Movie
-            </Button>
+            </div>
             <section className="movies">
                 {movies.map(movie => (
-                    <MovieItem movie={movie} />
+                    <MovieItem key={movie.id} movie={movie} />
                 ))}
             </section>
         </main>

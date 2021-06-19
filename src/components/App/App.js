@@ -2,6 +2,7 @@ import {HashRouter as Router, Route} from 'react-router-dom';
 // components/styling
 import './App.css';
 import Header from '../Header/Header';
+import Navbar from '../Navbar/Navbar';
 import MovieList from '../MovieList/MovieList';
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AddMovie from '../AddMovie/AddMovie';
@@ -11,7 +12,8 @@ function App() {
     <div className="App">
       <Header />
       <div className="App-main">
-        <Router>        
+        <Router>
+          <Navbar />
           <Route path="/" exact>
             <MovieList />
           </Route>

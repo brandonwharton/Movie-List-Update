@@ -23,9 +23,14 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchGenres);
     // watches for dispatches from AddMovie to POST a new movie to DB
     yield takeEvery('ADD_NEW_MOVIE', addNewMovie);
+    // watches for dispatches to reset genre reducer
+    yield takeEvery('CLEAR_GENRES', clearGenres);
 }
 
+
 function* fetchAllMovies() {
+    // reset the recentDetail reducer
+    // yield put ({ type: 'RESET_DETAIL_ID'});
     // get all movies from the DB
     try {
         const movies = yield axios.get('/api/movie');
@@ -40,6 +45,8 @@ function* fetchAllMovies() {
 function* fetchSingleMovie(action) {
     // action.payload is the DB id of the movie we want to GET
     const movieId = action.payload
+    // save the DB id into the recentDetail reducer to assist in navigation
+    // yield put({ type: 'SET_DETAIL_ID', payload: movieId})
     // get one movie from the DB
     try {
         // movieData comes back as a separate array element for each genre
@@ -90,7 +97,11 @@ function* addNewMovie(action) {
     } catch {
         console.error('post new movie error');
     }
-    
+}
+
+function* clearGenres() {
+    // reset genres
+    yield put({ type: 'RESET_GENRES' });
 }
 
 
@@ -113,16 +124,33 @@ const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
             return action.payload;
+        case 'RESET_GENRES':
+            return [];
         default:
             return state;
     }
 }
+
+
+// Used to store the most recently visited detail page for navigation
+// const recentDetail = (state = 0, action) => {
+//     switch (action.type) {
+//         case 'SET_DETAIL_ID':
+//             return action.payload;
+//         case 'RESET_DETAIL_ID':
+//             return 0;
+//         default:
+//             return state;
+//     }
+// }
+
 
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
+        // recentDetail
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
