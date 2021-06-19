@@ -13,7 +13,10 @@ import axios from 'axios';
 
 // Create the rootSaga generator function
 function* rootSaga() {
+    // watches for dispatches from MovieList
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
+    // watches for dispatches from DetailsPage 
+    yield takeEvery('FETCH_SINGLE_MOVIE', fetchSingleMovie)
 }
 
 function* fetchAllMovies() {
@@ -24,10 +27,22 @@ function* fetchAllMovies() {
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
-        console.log('get all error');
+        console.error('get all movies error');
     }
-        
 }
+
+function* fetchSingleMovie(action) {
+    const movieId = action.payload
+    // get one movie from the DB
+    try {
+        const movie = yield axios.get(`/api/movie${movieId}`);
+        yield put({ type: 'SET_MOVIES', payload: movie.data})
+    } catch {
+        console.error('get single movie error')
+    }
+}
+
+
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();

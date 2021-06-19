@@ -17,6 +17,8 @@ router.get('/', (req, res) => {
 
 // GET request for a single movie for the Details page
 router.get('/:id', (req, res) => {
+  
+
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
