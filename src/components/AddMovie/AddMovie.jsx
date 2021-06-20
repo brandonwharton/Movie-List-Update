@@ -7,12 +7,14 @@ import CancelButton from '../CancelButton/CancelButton';
 import './AddMovie.css';
 // material-UI components
 import Typography from '@material-ui/core/Typography';
+import '@fontsource/roboto'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
+
 
 
 
@@ -60,10 +62,11 @@ function AddMovie() {
             <Typography variant="h4" content="h4" className="add-movie-heading">
                 Add a Movie
             </Typography>
-            <FormControl onSubmit={handleSubmit} className="add-movie-form">
+            <FormControl onSubmit={handleSubmit} className="add-edit-form">
                 <TextField
                     label="title"
-                    required
+                    required={true}
+                    InputProps={{inputProps: {min: 1}}}
                     onChange={(event) => handleChangeFor(event, 'title')}
                 >
                 </TextField>
