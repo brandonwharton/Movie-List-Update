@@ -48,7 +48,8 @@ function AddMovie() {
     }
 
     const handleGenreAdd = (event) => {
-        setNewGenres([...newGenres, event.target.value]);
+        const newGenreId = event.target.value;
+        setNewGenres([...newGenres, genres[newGenreId-1]]);
     }
 
 
@@ -61,6 +62,19 @@ function AddMovie() {
         history.push('/');
     }
 
+
+    const selectedGenresDisplay = () => {
+        if (newGenres.length !== 0) {
+            return <div>
+                        <Typography variant="h5" content="h5">Genres Added:</Typography>
+                        <Typography variant="p" content="p">
+                            {newGenres.map(genreObject => {
+                                return `${genreObject.name} `
+                            })}
+                        </Typography>
+                   </div>
+        }
+    }
 
 
     // console.log(newMovie);
@@ -97,7 +111,7 @@ function AddMovie() {
                 {/* <InputLabel id="genre-select-label">
                     Genre
                 </InputLabel> */}
-                <Select value={newMovie.genre_id} label="genre" onChange={handleGenreAdd}>
+                <Select value={newGenres.name} label="genre" onChange={handleGenreAdd}>
                     {genres?.map((genre) => (
                     <MenuItem key={genre.id} value={genre.id}>
                         {genre.name}
@@ -113,6 +127,7 @@ function AddMovie() {
                 </Button>
             </FormControl>
             <CancelButton />
+            {selectedGenresDisplay()}
         </div>
 
     )
