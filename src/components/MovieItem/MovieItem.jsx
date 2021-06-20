@@ -8,14 +8,14 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import { AutorenewTwoTone } from "@material-ui/icons";
+
 
 
 const useStyles = makeStyles({
     root: {
         width: 300,
         margin: 6,
-        background: '#333',
+        background: '#555',
     },
     media: {
         // width: 300,
@@ -38,8 +38,8 @@ function MovieItem( {movie} ) {
     const handleClick = () => {
         history.push(`/details/${movie.id}`);
     }
-    
-    console.log('movie', movie);
+
+    // console.log('movie', movie);
     return (
 
         <Card key={movie.id} className={classes.root}>
@@ -48,10 +48,16 @@ function MovieItem( {movie} ) {
                     image={movie.poster}
                     title={movie.title}
                     className={classes.media}
+                    onClick={handleClick}
                 /> 
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="h4">
                         {movie.title}
+                    </Typography>
+                    <Typography variant="p" component ="p">
+                        Genres: {movie.array_agg.map(genre => {
+                            return `${genre} `
+                        })}
                     </Typography>
                 </CardContent>
             </CardActionArea>
