@@ -26,7 +26,7 @@ function DetailsPage () {
 
     // navigate back to list view on click of Back to List button
     const backToList = () => {
-        history.goBack();
+        history.push('/');
     }
 
     // navigate to the edit page to change movie details in DB
