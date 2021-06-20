@@ -29,8 +29,10 @@ function AddMovie() {
         title: '',
         poster: '',
         description: '',
-        genre_id: 1
+        genre_id: ''
     });
+    // state for holding the list of genres the user wants to add to a new movie
+    const [newGenres, setNewGenres] = useState([]);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES'});
@@ -45,18 +47,51 @@ function AddMovie() {
         })
     }
 
+    const handleGenreAdd = (event) => {
+        const newGenreId = event.target.value;
+        // prevent duplicates
+        if(newGenres.includes(genres[newGenreId-1])) {
+            return;
+        }
+        setNewGenres([...newGenres, genres[newGenreId-1]]);
+    }
+
+
     // submit handler for save button to dispatch newMovie data and navigation back to list
     const handleSubmit = (event) => {
         event.preventDefault();
+        console.log('in handlesubmit show newGenres', newGenres);
+        setNewMovie({
+            ...newMovie,
+            genre_id: newGenres,
+            genresArray: newGenres
+        })
         // send newMovie data to redux saga
-        dispatch({ type: 'ADD_NEW_MOVIE', payload: newMovie });
+        dispatch({ type: 'ADD_NEW_MOVIE', payload: {newMovie: newMovie, genresArray: newGenres }});
         // navigate back to movie list
         history.push('/');
     }
 
 
-    console.log(newMovie);
 
+
+
+    const selectedGenresDisplay = () => {
+        if (newGenres.length !== 0) {
+            return <div>
+                        <Typography variant="h5" content="h5">Genres Added:</Typography>
+                        <Typography variant="p" content="p">
+                            {newGenres.map(genreObject => {
+                                return `${genreObject.name} `
+                            })}
+                        </Typography>
+                   </div>
+        }
+    }
+
+
+    // console.log(newMovie);
+    // console.log(newGenres);
     return (
         <div>
             <Typography variant="h4" content="h4" className="add-movie-heading">
@@ -89,7 +124,7 @@ function AddMovie() {
                 {/* <InputLabel id="genre-select-label">
                     Genre
                 </InputLabel> */}
-                <Select value={newMovie.genre_id} label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
+                <Select value={newGenres.name} label="genre" onChange={handleGenreAdd}>
                     {genres?.map((genre) => (
                     <MenuItem key={genre.id} value={genre.id}>
                         {genre.name}
@@ -105,6 +140,7 @@ function AddMovie() {
                 </Button>
             </FormControl>
             <CancelButton />
+            {selectedGenresDisplay()}
         </div>
 
     )
