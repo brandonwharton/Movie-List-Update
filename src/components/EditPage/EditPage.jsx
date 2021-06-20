@@ -25,7 +25,8 @@ function EditPage () {
     // local state to track changes
     const [movieDetails, setMovieDetails] = useState({
         title: movie?.title,
-        description: movie?.description
+        description: movie?.description,
+        id: id
     })
 
     // GET request dispatch on navigation or reload
@@ -33,10 +34,12 @@ function EditPage () {
         dispatch({ type: 'FETCH_SINGLE_MOVIE', payload: id});
         setMovieDetails({
             title: movie?.title,
-            description: movie?.description
+            description: movie?.description,
+            id: id
         })
     }, [])
 
+    // change handler for both TextFields, adjusts local state as changes occur
     const handleChangeFor = (event, propertyName) => {
         setMovieDetails({
             ...movieDetails,
@@ -44,14 +47,21 @@ function EditPage () {
         })
     }
 
+    // on submit click, set a PUT request dispatch to edit movie details in DB
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        dispatch({ type: 'EDIT_MOVIE_DETAILS', payload: movieDetails })
+    }
 
-    console.log(movieDetails);
+
+
+    // console.log(movieDetails);
     return (
         <div>
             <Typography variant="h3" component="h3">
                 Edit Movie: {movie?.title}
             </Typography>
-            <FormControl className="add-edit-form">
+            <FormControl className="add-edit-form" onSubmit={handleSubmit}>
                 <TextField
                     label="title"
                     value={movieDetails.title}
@@ -69,7 +79,11 @@ function EditPage () {
                     onChange={(event) => handleChangeFor(event, 'description')}
                 >
                 </TextField>
-                <Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
                     Save
                 </Button>
             </FormControl>

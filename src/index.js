@@ -25,6 +25,8 @@ function* rootSaga() {
     yield takeEvery('ADD_NEW_MOVIE', addNewMovie);
     // watches for dispatches to reset genre reducer
     yield takeEvery('CLEAR_GENRES', clearGenres);
+    // watches for dispatches to edit movie details in DB
+    yield takeEvery('EDIT_MOVIE_DETAILS', editMovieDetails)
 }
 
 
@@ -38,7 +40,7 @@ function* fetchAllMovies() {
         yield put({ type: 'SET_MOVIES', payload: movies.data });
 
     } catch {
-        console.error('get all movies error');
+        console.error('GET all movies error');
     }
 }
 
@@ -61,7 +63,7 @@ function* fetchSingleMovie(action) {
         // using movieData from database, set genres reducer with each genre
         yield put({ type: 'FETCH_SPECIFIC_GENRES', payload: movieData.data })
     } catch {
-        console.error('get single movie error')
+        console.error('GET single movie error')
     }
 }
 
@@ -83,7 +85,7 @@ function* fetchGenres() {
         const genres = yield axios.get('/api/genre');
         yield put({ type: 'SET_GENRES', payload: genres.data});
     } catch {
-        console.error('get all genres error');
+        console.error('GET all genres error');
     }
 }
 
@@ -95,7 +97,7 @@ function* addNewMovie(action) {
         // reset state with updated DB data
         yield put({ type: fetchAllMovies });
     } catch {
-        console.error('post new movie error');
+        console.error('POST new movie error');
     }
 }
 
@@ -103,6 +105,21 @@ function* clearGenres() {
     // reset genres
     yield put({ type: 'RESET_GENRES' });
 }
+
+
+function* editMovieDetails(action) {
+    const movieId = action.payload.id
+    // console.log(action.payload);
+    // PUT request to DB to change movie details
+    try {
+        yield axios.put(`/api/movie/${movieId}`, action.payload)
+    } catch {
+        console.error('PUT details edit error')
+    }
+    
+}
+
+
 
 
 

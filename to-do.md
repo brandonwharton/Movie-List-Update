@@ -23,22 +23,24 @@ To-Do
     - [ ] Base mode doesn't need multiple genres/movie available
 
 - [ ] Styling
-    - [ ] Research cards for movie posters
+    - [x] Research cards for movie posters
     - [ ] Research grids for movie posters
 
 - [ ] Stretch
     - [x] Maintain refresh on details page
         - [x] Research React Router URL PARAMS
     - [ ] Edit page button on detail page
-        - [ ] TextField for changing the movie title
-        - [ ] textarea for changing movie description
-        - [ ] Cancel button, navigate back to details page
+        - [x] TextField for changing the movie title
+        - [x] textarea for changing movie description
+        - [x] Cancel button, navigate back to details page
         - [ ] Save button, update title and description in DB
             - [ ] Need a PUT saga and a PUT route in movie.router
         - [ ] Display current (not yet changed) values?
 
+- [ ] Form validation?
+
 - [ ] Other Ideas
-    - [ ] Navbar for 
+    - [x] Navbar
     - [ ] Display all genres on movie list page
         - [ ] Research array_agg
     - [ ] Allow multiple genres as they add

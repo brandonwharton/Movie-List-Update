@@ -73,4 +73,20 @@ router.post('/', (req, res) => {
   })
 })
 
+
+// PUT request to edit movie details
+router.put('/:id', (req, res) => {
+  console.log('in PUT request', req.params.id, req.body);
+  const query = `UPDATE "movies" SET "title" = $1, "description" = $2 WHERE "id" = $3;`;
+  // set up values
+  const values = [req.body.title, req.body.description, req.params.id];
+  // send query to DB
+  pool.query(query, values).then(result => {
+    res.sendStatus(200);
+  }).catch(err => {
+    console.log(`Problem with PUT request to DB,`, err)
+    res.sendStatus(500);
+  });
+})
+
 module.exports = router;
