@@ -31,6 +31,8 @@ function AddMovie() {
         description: '',
         genre_id: 1
     });
+    // state for holding the list of genres the user wants to add to a new movie
+    const [newGenres, setNewGenres] = useState([]);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES'});
@@ -45,6 +47,11 @@ function AddMovie() {
         })
     }
 
+    const handleGenreAdd = (event) => {
+        setNewGenres([...newGenres, event.target.value]);
+    }
+
+
     // submit handler for save button to dispatch newMovie data and navigation back to list
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -55,8 +62,9 @@ function AddMovie() {
     }
 
 
-    console.log(newMovie);
 
+    // console.log(newMovie);
+    console.log(newGenres);
     return (
         <div>
             <Typography variant="h4" content="h4" className="add-movie-heading">
@@ -89,7 +97,7 @@ function AddMovie() {
                 {/* <InputLabel id="genre-select-label">
                     Genre
                 </InputLabel> */}
-                <Select value={newMovie.genre_id} label="genre" onChange={(event) => handleChangeFor(event, 'genre_id')}>
+                <Select value={newMovie.genre_id} label="genre" onChange={handleGenreAdd}>
                     {genres?.map((genre) => (
                     <MenuItem key={genre.id} value={genre.id}>
                         {genre.name}
