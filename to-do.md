@@ -33,9 +33,9 @@ To-Do
         - [x] TextField for changing the movie title
         - [x] textarea for changing movie description
         - [x] Cancel button, navigate back to details page
-        - [ ] Save button, update title and description in DB
-            - [ ] Need a PUT saga and a PUT route in movie.router
-        - [ ] Display current (not yet changed) values?
+        - [x] Save button, update title and description in DB
+            - [x] Need a PUT saga and a PUT route in movie.router
+        - [x] Display current (not yet changed) values?
 
 - [ ] Form validation?
 

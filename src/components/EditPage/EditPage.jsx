@@ -47,10 +47,13 @@ function EditPage () {
         })
     }
 
-    // on submit click, set a PUT request dispatch to edit movie details in DB
+    // on submit click, set a PUT request dispatch to edit movie details in DB, then return to details page
     const handleSubmit = (event) => {
         event.preventDefault();
+        // send request to edit details with saved local state
         dispatch({ type: 'EDIT_MOVIE_DETAILS', payload: movieDetails })
+        // send user back to details page
+        history.push(`/details/${id}`)
     }
 
 
@@ -84,7 +87,7 @@ function EditPage () {
                     color="primary"
                     onClick={handleSubmit}
                 >
-                    Save
+                    Save Details
                 </Button>
             </FormControl>
             <CancelButton />
