@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 
-
+// material-UI card styling
 const useStyles = makeStyles({
     root: {
         width: 300,
@@ -38,7 +38,6 @@ function MovieItem( {movie} ) {
     const handleClick = () => {
         history.push(`/details/${movie.id}`);
     }
-
     // console.log('movie', movie);
     return (
 
