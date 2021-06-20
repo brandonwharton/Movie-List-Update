@@ -4,7 +4,12 @@ const pool = require('../modules/pool')
 
 // GET request for all movies for the home page
 router.get('/', (req, res) => {
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+  const query = `
+    SELECT ARRAY_AGG ("genres".name), "movies".* FROM "movies"
+    JOIN "movies_genres" ON "movies_genres".movie_id = "movies".id
+    JOIN "genres" ON "movies_genres".genre_id = "genres".id
+    GROUP BY "movies".id
+    ;`;
   pool.query(query)
     .then( result => {
       res.send(result.rows);
@@ -20,10 +25,11 @@ router.get('/:id', (req, res) => {
   const movieId = req.params.id
   console.log('Inside single movie GET with ID:', movieId);
   
-  const query = `SELECT "genres".name, "movies".* FROM "movies"
+  const query = `SELECT ARRAY_AGG ("genres".name), "movies".* FROM "movies"
                  JOIN "movies_genres" ON "movies_genres".movie_id = "movies".id
                  JOIN "genres" ON "movies_genres".genre_id = "genres".id
-                 WHERE "movies".id = $1;`;
+                 WHERE "movies".id = $1
+                 GROUP BY "movies".id;`;
   pool.query(query, [movieId])
     .then( result => {
       res.send(result.rows);

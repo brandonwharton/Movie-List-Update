@@ -38,7 +38,8 @@ function MovieItem( {movie} ) {
     const handleClick = () => {
         history.push(`/details/${movie.id}`);
     }
-
+    
+    console.log('movie', movie);
     return (
 
         <Card key={movie.id} className={classes.root}>

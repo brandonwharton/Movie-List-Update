@@ -53,15 +53,15 @@ function* fetchSingleMovie(action) {
     try {
         // movieData comes back as a separate array element for each genre
         // associated with that movie
-        const movieData = yield axios.get(`/api/movie/${movieId}`);
-        console.log('Troubleshooting movieData and genres', movieData.data);
+        const movie= yield axios.get(`/api/movie/${movieId}`);
+        console.log('Troubleshooting movieData and genres', movie.data);
         
         // save one element of movieData to send to movies reducer
-        const movie = movieData.data[0];
+        
         // send movie data to movies reducer as an array to maintain default state
-        yield put({ type: 'SET_MOVIES', payload: [movie] });
+        yield put({ type: 'SET_MOVIES', payload: movie.data });
         // using movieData from database, set genres reducer with each genre
-        yield put({ type: 'FETCH_SPECIFIC_GENRES', payload: movieData.data })
+        yield put({ type: 'FETCH_SPECIFIC_GENRES', payload: movie.data })
     } catch {
         console.error('GET single movie error')
     }
@@ -73,8 +73,10 @@ function* fetchSingleMovie(action) {
 function* fetchSpecificGenres(action) {
     // pull genres out of data and save them as an array
     // genres come in as the 'name' key for each individual array element passed as action.payload
-    let genreArray = [];
-    action.payload.forEach(genre => genreArray.push(genre.name));
+    let genreArray = action.payload[0].array_agg;
+    console.log('action payload in fetch specific genre', action.payload, genreArray);
+    
+    // action.payload.forEach(genre => genreArray.push(genre.name));
     // set genres reducer with newly created array 
     yield put({ type: 'SET_GENRES', payload: genreArray })
 }
