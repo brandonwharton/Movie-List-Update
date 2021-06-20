@@ -25,9 +25,13 @@ function DetailsPage () {
     }, [])
 
     // navigate back to list view on click of Back to List button
-    const handleClick = () => {
-        console.log('clicked');
+    const backToList = () => {
         history.goBack();
+    }
+
+    // navigate to the edit page to change movie details in DB
+    const toEditPage = () => {
+        history.push(`/edit/${id}`)
     }
 
 
@@ -45,9 +49,16 @@ function DetailsPage () {
         <Button
             variant="contained"
             color="primary"
-            onClick={handleClick}
+            onClick={backToList}
         >
             Back to List
+        </Button>
+        <Button
+            variant="contained"
+            color="secondary"
+            onClick={toEditPage}
+        >
+            Edit Details
         </Button>
     </div>
     )

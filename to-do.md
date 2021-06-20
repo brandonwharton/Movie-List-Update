@@ -27,8 +27,8 @@ To-Do
     - [ ] Research grids for movie posters
 
 - [ ] Stretch
-    - [ ] Maintain refresh on details page
-        - [ ] Research React Router URL PARAMS
+    - [x] Maintain refresh on details page
+        - [x] Research React Router URL PARAMS
     - [ ] Edit page button on detail page
         - [ ] TextField for changing the movie title
         - [ ] textarea for changing movie description

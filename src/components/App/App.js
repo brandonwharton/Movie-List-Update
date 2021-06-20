@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar';
 import MovieList from '../MovieList/MovieList';
 import DetailsPage from '../DetailsPage/DetailsPage';
 import AddMovie from '../AddMovie/AddMovie';
+import EditPage from '../EditPage/EditPage';
 
 function App() {
   return (
@@ -17,10 +18,12 @@ function App() {
           <Route path="/" exact>
             <MovieList />
           </Route>
-          <Route path='/details/:id' children={<DetailsPage />}>
-          </Route>
           <Route path='/addmovie'>
             <AddMovie />
+          </Route>
+          <Route path='/details/:id' children={<DetailsPage />}>
+          </Route>
+          <Route path='/edit/:id' children={<EditPage />}>
           </Route>
         </Router>
       </div>
