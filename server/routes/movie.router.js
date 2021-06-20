@@ -11,7 +11,7 @@ router.get('/', (req, res) => {
     GROUP BY "movies".id
     ;`;
   pool.query(query)
-    .then( result => {
+    .then(result => {
       res.send(result.rows);
     })
     .catch(err => {
@@ -24,14 +24,14 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const movieId = req.params.id
   console.log('Inside single movie GET with ID:', movieId);
-  
+
   const query = `SELECT ARRAY_AGG ("genres".name), "movies".* FROM "movies"
                  JOIN "movies_genres" ON "movies_genres".movie_id = "movies".id
                  JOIN "genres" ON "movies_genres".genre_id = "genres".id
                  WHERE "movies".id = $1
                  GROUP BY "movies".id;`;
   pool.query(query, [movieId])
-    .then( result => {
+    .then(result => {
       res.send(result.rows);
     })
     .catch(err => {
@@ -51,33 +51,63 @@ router.post('/', (req, res) => {
   RETURNING "id";`
 
   // FIRST QUERY MAKES MOVIE
-  pool.query(insertMovieQuery, [req.body.title, req.body.poster, req.body.description])
-  .then(result => {
-    console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
-    
-    const createdMovieId = result.rows[0].id
+  pool.query(insertMovieQuery, [req.body.newMovie.title, req.body.newMovie.poster, req.body.newMovie.description])
+    .then(result => {
+      let genresArray = req.body.genresArray;
+      console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
 
-    // Now handle the genre reference
-    const insertMovieGenreQuery = `
-      INSERT INTO "movies_genres" ("movie_id", "genre_id")
-      VALUES  ($1, $2);
-      `
-      // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
-      pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
-        //Now that both are done, send back success!
-        res.sendStatus(201);
+      const createdMovieId = result.rows[0].id
+      // loop through this process once for each new genre added
+      genresArray.forEach(genre => {
+        console.log('in for each, genre:', genre);
+        
+        // Now handle the genre reference
+        const insertMovieGenreQuery = `
+        INSERT INTO "movies_genres" ("movie_id", "genre_id")
+        VALUES  ($1, $2);
+        `
+        // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
+        pool.query(insertMovieGenreQuery, [createdMovieId, genre.id]).then(result => {
+          //Now that both are done, send back success!
+          res.sendStatus(201);
+        }).catch(err => {
+          // catch for second query
+          console.log(err);
+          res.sendStatus(500)
+        })
+
+      }) // end for each
+      // Catch for first query
       }).catch(err => {
-        // catch for second query
         console.log(err);
         res.sendStatus(500)
       })
-
-// Catch for first query
-  }).catch(err => {
-    console.log(err);
-    res.sendStatus(500)
-  })
 })
+//     console.log('New Movie Id:', result.rows[0].id); //ID IS HERE!
+
+//     const createdMovieId = result.rows[0].id
+
+//     // Now handle the genre reference
+//     const insertMovieGenreQuery = `
+//       INSERT INTO "movies_genres" ("movie_id", "genre_id")
+//       VALUES  ($1, $2);
+//       `
+//       // SECOND QUERY ADDS GENRE FOR THAT NEW MOVIE
+//       pool.query(insertMovieGenreQuery, [createdMovieId, req.body.genre_id]).then(result => {
+//         //Now that both are done, send back success!
+//         res.sendStatus(201);
+//       }).catch(err => {
+//         // catch for second query
+//         console.log(err);
+//         res.sendStatus(500)
+//       })
+
+// // Catch for first query
+//   }).catch(err => {
+//     console.log(err);
+//     res.sendStatus(500)
+//   })
+// })
 
 
 // PUT request to edit movie details
