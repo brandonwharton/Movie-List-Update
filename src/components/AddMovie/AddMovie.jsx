@@ -24,16 +24,17 @@ function AddMovie() {
     const history = useHistory();
     // get all genres from reducer
     const genres = useSelector(store => store.genres);
-    // GET all genres on page load
+
+    // state for keeping track of form inputs
     const [newMovie, setNewMovie] = useState({
         title: '',
         poster: '',
         description: '',
-        genre_id: ''
     });
     // state for holding the list of genres the user wants to add to a new movie
     const [newGenres, setNewGenres] = useState([]);
 
+    // GET all genres on page load
     useEffect(() => {
         dispatch({ type: 'FETCH_GENRES'});
     }, []);
@@ -47,12 +48,14 @@ function AddMovie() {
         })
     }
 
+    // change handler for genres, adds each genre to the newGenres array as they're chosen from dropdown
     const handleGenreAdd = (event) => {
         const newGenreId = event.target.value;
         // prevent duplicates
         if(newGenres.includes(genres[newGenreId-1])) {
             return;
         }
+        // set state for added genre, need to target newGenreId-1 because the id of the genre is one higher than it's array index
         setNewGenres([...newGenres, genres[newGenreId-1]]);
     }
 
@@ -61,11 +64,6 @@ function AddMovie() {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log('in handlesubmit show newGenres', newGenres);
-        setNewMovie({
-            ...newMovie,
-            genre_id: newGenres,
-            genresArray: newGenres
-        })
         // send newMovie data to redux saga
         dispatch({ type: 'ADD_NEW_MOVIE', payload: {newMovie: newMovie, genresArray: newGenres }});
         // navigate back to movie list
@@ -73,10 +71,9 @@ function AddMovie() {
     }
 
 
-
-
-
+    // conditional rendering for the display of genres that are being added to movie
     const selectedGenresDisplay = () => {
+        // Once one genre is added, start displaying the return below
         if (newGenres.length !== 0) {
             return <div>
                         <Typography variant="h5" content="h5">Genres Added:</Typography>
@@ -89,7 +86,6 @@ function AddMovie() {
         }
     }
 
-
     // console.log(newMovie);
     // console.log(newGenres);
     return (
@@ -98,10 +94,9 @@ function AddMovie() {
                 Add a Movie
             </Typography>
             <FormControl onSubmit={handleSubmit} className="add-edit-form">
-                <TextField
+                <TextField 
                     label="title"
-                    required={true}
-                    InputProps={{inputProps: {min: 1}}}
+                    required
                     onChange={(event) => handleChangeFor(event, 'title')}
                 >
                 </TextField>
@@ -115,8 +110,8 @@ function AddMovie() {
                     label="description"
                     multiline
                     required
-                    rows={6}
-                    rowsMax={6}
+                    rows={7}
+                    rowsMax={7}
                     variant="outlined"
                     onChange={(event) => handleChangeFor(event, 'description')}
                 >

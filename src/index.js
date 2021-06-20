@@ -44,6 +44,7 @@ function* fetchAllMovies() {
     }
 }
 
+
 function* fetchSingleMovie(action) {
     // action.payload is the DB id of the movie we want to GET
     const movieId = action.payload
@@ -81,6 +82,7 @@ function* fetchSpecificGenres(action) {
     yield put({ type: 'SET_GENRES', payload: genreArray })
 }
 
+
 function* fetchGenres() {
     // get all genres from DB
     try {
@@ -103,6 +105,7 @@ function* addNewMovie(action) {
     }
 }
 
+
 function* clearGenres() {
     // reset genres
     yield put({ type: 'RESET_GENRES' });
@@ -120,9 +123,6 @@ function* editMovieDetails(action) {
     }
     
 }
-
-
-
 
 
 // Create sagaMiddleware
@@ -149,19 +149,6 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-
-
-// Used to store the most recently visited detail page for navigation
-// const recentDetail = (state = 0, action) => {
-//     switch (action.type) {
-//         case 'SET_DETAIL_ID':
-//             return action.payload;
-//         case 'RESET_DETAIL_ID':
-//             return 0;
-//         default:
-//             return state;
-//     }
-// }
 
 
 // Create one store that all components can use
