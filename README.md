@@ -14,6 +14,8 @@ capacity to add multiple genres to a movie when filling out the form to add one.
 figuring out how to maintain state between all the different views in a way that was friendly to both page refreshes and navigation between 
 back buttons and the navbar. 
 
+You can view this project on Heroku [here](https://floating-waters-88069.herokuapp.com/#/). Load time might take a while, it's being hosted for free and the link may have gone cold.
+
 ## Screen Shots
 
 ![app screenshot](/wireframes/ScreenShot1.png)
