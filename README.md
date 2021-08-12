@@ -2,7 +2,7 @@
 
 ## Description
 
-Duration: Two-Day Sprint
+_Duration: Two-Day Sprint_
 
 The purpose of this project was to make updates to a simple applictaion designed to display a list of movies stored in a local 
 database. My requirements were to create a detail view for each of the movies when clicked that brings the user to a page containing the 
@@ -29,7 +29,6 @@ You can view this project on Heroku [here](https://floating-waters-88069.herokua
 
 ## Installation
 
-
 1. Begin running your local database by running `brew services start postgresql` in a terminal.
     - Stop database by running `brew services stop postgresql` in that same terminal.
 2. Using provided database.sql file, use a database manager of your choice ([Postico](https://eggerapps.at/postico/)) to create a local
@@ -41,6 +40,20 @@ database with the listed tables name and structures. Seed data is provided.
 6. Run `npm run client` in another terminal to start the client page.
     - Stop the local server by pressing `ctrl-c`.    
 7. Open a browser window and navigate to [http://localhost:3000/](http://localhost:3000/) to use the app.
+
+## Usage
+
+1. The home route shows a gallery of movie poster cards along with the genres associated with each movie in the database. There is a see details button
+   that takes you to the details view for each individual movie. Clicking on the poster itself also navigates to the details view.
+2. The details view shows more information about the movie clicked. It includes a longer description of the movie in addition to the genres involved. 
+   There is a Back To List button that brings you back to the home page, and an Edit Details button that takes you to an edit view for the movie. 
+3. The edit details view allows you to edit the title and description for the movie chosen. The Save Details button updates the database for that movie
+   and brings you back to the details view for the movie chosen with the updated data. The cancel button brings you back to the details view without
+   saving your changes.
+4. The Add A Movie menu at the top brings you to a form where you can add another movie to the main list. It contains a prompt for a title, a URL for a
+   movie poster image to be displayed, and a longer description of the movie. There is a dropdown select underneath that allows you to pick from a list of
+   genres, of which you can select multiple to add to the movie. The save button saves the movie addition to the database and brings you back to the list
+   view. The cancel button navigates back to the list view without saving the movie data.
 
 ## Built With
 
